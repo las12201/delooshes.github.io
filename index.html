@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucas | Delooshes – Video Editor & Content Strategist</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a1618;
+            --bg-card: #112a2e;
+            --accent-teal: #4db8a8;
+            --accent-blue: #5b9aaa;
+            --accent-green: #3d7a6b;
+            --text-primary: #e8f5f3;
+            --text-secondary: #a8c5c0;
+            --text-muted: #6b8885;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .pixel-font {
+            font-family: 'Press Start 2P', monospace;
+            letter-spacing: 0.05em;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 120px 0 80px;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .video-background iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 100vh;
+            min-width: 100%;
+            min-height: 100%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 22, 24, 0.85);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 24px;
+            border: 3px solid var(--accent-teal);
+            object-fit: cover;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 16px;
+            color: var(--accent-teal);
+        }
+
+        .hero-content .subtitle {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-weight: 300;
+        }
+
+        .hero-content .tagline {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--text-primary);
+            margin-bottom: 40px;
+            font-weight: 400;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 32px;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-teal);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary:hover {
+            background-color: #5fcfbd;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--accent-blue);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--bg-card);
+        }
+
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 40px;
+            color: var(--accent-teal);
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .about-content p {
+            margin-bottom: 24px;
+        }
+
+        .highlight {
+            color: var(--accent-teal);
+            font-weight: 500;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .service-card {
+            background-color: var(--bg-card);
+            padding: 32px 24px;
+            border-radius: 12px;
+            border: 1px solid rgba(77, 184, 168, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent-teal);
+            transform: translateY(-4px);
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--accent-blue);
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Work Section */
+        .work {
+            background-color: var(--bg-card);
+        }
+
+        .work-content {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .work-content p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .youtube-placeholder {
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+            border-radius: 12px;
+            padding: 60px 40px;
+            margin: 32px auto;
+            max-width: 600px;
+        }
+
+        .youtube-placeholder p {
+            color: var(--text-primary);
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+
+        /* Collaboration Section */
+        .collab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .collab-card {
+            background-color: var(--bg-card);
+            padding: 40px 32px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .collab-card:hover {
+            border-color: var(--accent-teal);
+        }
+
+        .collab-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: var(--accent-teal);
+        }
+
+        .collab-card p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--bg-card);
+            text-align: center;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 500px;
+            margin: 40px auto 0;
+        }
+
+        .contact-link {
+            padding: 16px 24px;
+            background-color: var(--bg-dark);
+            border-radius: 8px;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(77, 184, 168, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 1rem;
+        }
+
+        .contact-link:hover {
+            background-color: var(--accent-green);
+            border-color: var(--accent-teal);
+            transform: translateX(4px);
+        }
+
+        .contact-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 32px 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 0;
+            }
+
+            .hero {
+                min-height: 80vh;
+                padding: 100px 0 60px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .collab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .profile-pic {
+                width: 100px;
+                height: 100px;
+            }
+
+            .service-card {
+                padding: 24px 20px;
+            }
+
+            .youtube-placeholder {
+                padding: 40px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="video-background">
+            <iframe 
+                src="https://www.youtube.com/embed/VIDEO_ID_HERE?autoplay=1&mute=1&loop=1&playlist=VIDEO_ID_HERE&controls=0&showinfo=0&rel=0&modestbranding=1"
+                frameborder="0"
+                allow="autoplay; encrypted-media"
+                allowfullscreen>
+            </iframe>
+            <div class="video-overlay"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <img src="profile-picture.jpg" alt="Lucas Profile Picture" class="profile-pic">
+                <h1 class="pixel-font">DELOOSHES</h1>
+                <p class="subtitle">Lucas | Video Editor & Content Strategist</p>
+                <p class="tagline">Crafting engaging YouTube videos with care, precision, and a whole lot of heart</p>
+                <div class="cta-buttons">
+                    <a href="https://youtube.com/@delooshes" class="btn btn-primary">Visit YouTube Channel</a>
+                    <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title pixel-font">ABOUT</h2>
+            <div class="about-content">
+                <p>Hey! I'm Lucas, but you probably know me as <span class="highlight">Delooshes</span>. I'm a professional video editor and content strategist with over 5 years of marketing experience, now focused entirely on what I love most: creating compelling YouTube content.</p>
+                
+                <p>I specialize in editing videos that tell stories, whether that's gaming content, comedy sketches, or narrative driven pieces. My approach combines technical precision with creative vision, ensuring every frame serves the story and keeps viewers engaged.</p>
+                
+                <p>What sets my work apart is the <span class="highlight">attention to detail</span>. From high quality audio mixing (compression, side chaining music to voiceovers) to 2D animation and visual effects, I put genuine care and effort into every project. Your content isn't just another job; it's a collaboration I'm invested in.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title pixel-font">WHAT I DO</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Video Editing</h3>
+                    <p>Professional editing for YouTube videos including sketches, gaming content, and storytelling formats. Pacing, timing, and engagement are my priorities.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Content Strategy</h3>
+                    <p>Leveraging years of marketing experience to help creators optimize their content for audience growth and retention.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Audio Mixing</h3>
+                    <p>High-quality audio post-production including compression, EQ, and side-chaining music to dialogue for crystal-clear voiceovers.</p>
+                </div>
+                <div class="service-card">
+                    <h3>2D Animation</h3>
+                    <p>Custom motion graphics and 2D animation to enhance storytelling and add visual interest to your videos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Section -->
+    <section class="work" id="work">
+        <div class="container">
+            <h2 class="section-title pixel-font">MY WORK</h2>
+            <div class="work-content">
+                <p>The best way to see what I can do is to watch my videos. My YouTube channel is my portfolio—every video showcases the quality, creativity, and dedication I bring to each project.</p>
+                
+                <div class="youtube-placeholder">
+                    <p>🎬 Check out my YouTube channel for examples of my editing work, content style, and creative approach.</p>
+                </div>
+                
+                <a href="https://youtube.com/@delooshes" class="btn btn-primary">Watch My Videos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collaboration Section -->
+    <section class="collaboration" id="collaboration">
+        <div class="container">
+            <h2 class="section-title pixel-font">LET'S WORK TOGETHER</h2>
+            <div class="collab-grid">
+                <div class="collab-card">
+                    <h3>Video Editor & Content Strategist</h3>
+                    <p>Need a dedicated editor to help establish or grow your YouTube channel? I bring both creative editing skills and strategic marketing experience to elevate your content.</p>
+                    <a href="#contact" class="btn btn-secondary">Hire Me</a>
+                </div>
+                <div class="collab-card">
+                    <h3>Creator Collaborations</h3>
+                    <p>Want to create something together? I'm always open to collaborating on projects where we both appear in the video and bring our creative visions to life.</p>
+                    <a href="#contact" class="btn btn-secondary">Let's Collab</a>
+                </div>
+                <div class="collab-card">
+                    <h3>Brands & Sponsors</h3>
+                    <p>Interested in sponsorships or brand collaborations? I'm open to partnerships that align with my content and values.</p>
+                    <a href="#contact" class="btn btn-secondary">Partner With Me</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title pixel-font">GET IN TOUCH</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 1.1rem;">Ready to start a project? Have questions? Reach out!</p>
+            
+            <div class="contact-methods">
+                <a href="mailto:lucas@example.com" class="contact-link">
+                    <span class="contact-label">Email:</span>
+                    <span>lucas@example.com</span>
+                </a>
+                <a href="tel:+1234567890" class="contact-link">
+                    <span class="contact-label">Phone:</span>
+                    <span>+1 (234) 567-890</span>
+                </a>
+                <a href="https://discord.com" class="contact-link">
+                    <span class="contact-label">Discord:</span>
+                    <span>Delooshes#0000</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Lucas | Delooshes. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
